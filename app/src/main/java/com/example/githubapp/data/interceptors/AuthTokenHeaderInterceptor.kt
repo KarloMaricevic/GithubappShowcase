@@ -1,12 +1,12 @@
 package com.example.githubapp.data.interceptors
 
-import com.example.githubapp.data.credencials.CredentialsDatasource
+import com.example.githubapp.data.managers.UserTokenManager
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
 class AuthTokenHeaderInterceptor @Inject constructor(
-    private val credentialsDatasource: CredentialsDatasource,
+    private val tokenManager: UserTokenManager,
 ) : Interceptor {
 
     private companion object {
@@ -17,7 +17,7 @@ class AuthTokenHeaderInterceptor @Inject constructor(
         val request = chain.request()
         return chain.proceed(
             request.newBuilder().apply {
-                val token = credentialsDatasource.getAccessToken()
+                val token = tokenManager.getAccessToken()
                 if (!token.isNullOrEmpty()) {
                     addHeader(AUTHORIZATION_KEY, "Bearer $token")
                 }

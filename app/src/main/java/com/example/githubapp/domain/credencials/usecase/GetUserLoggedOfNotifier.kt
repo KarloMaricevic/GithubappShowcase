@@ -1,11 +1,11 @@
 package com.example.githubapp.domain.credencials.usecase
 
-import com.example.githubapp.data.credencials.CredentialsDatasource
+import com.example.githubapp.domain.credencials.CredentialsRepository
 import javax.inject.Inject
 
 class GetUserLoggedOfNotifier @Inject constructor(
-    private val credentialsDatasource: CredentialsDatasource,
+    private val repository: CredentialsRepository,
 ) {
 
-    operator fun invoke() = credentialsDatasource.getBadAuthChanel()
+    operator fun invoke() = repository.getUserLoggedOffNotifier()
 }

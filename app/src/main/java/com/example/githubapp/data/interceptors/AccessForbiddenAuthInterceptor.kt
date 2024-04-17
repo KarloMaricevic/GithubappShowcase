@@ -1,12 +1,12 @@
 package com.example.githubapp.data.interceptors
 
-import com.example.githubapp.data.credencials.CredentialsDatasource
+import com.example.githubapp.data.managers.ExpiredCredentialsCallback
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
 class AccessForbiddenAuthInterceptor @Inject constructor(
-    private val credentialsDatasource: CredentialsDatasource,
+    private val callback: ExpiredCredentialsCallback,
 ) : Interceptor {
 
     private companion object {
@@ -17,7 +17,7 @@ class AccessForbiddenAuthInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
         if (response.code == ACCESS_FORBIDDEN_CODE || response.code == REQUIRES_AUTH_CODE) {
-            credentialsDatasource.notifyCallFailedBecauseOfBadAuth()
+            callback.expiredCredentialsError()
         }
         return response
     }

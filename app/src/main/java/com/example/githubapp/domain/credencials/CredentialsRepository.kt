@@ -1,17 +1,21 @@
 package com.example.githubapp.domain.credencials
 
 import com.example.githubapp.data.credencials.CredentialsDatasource
+import com.example.githubapp.data.managers.ExpiredCredentialsCallback
+import com.example.githubapp.data.managers.UserTokenManager
 import com.example.githubapp.domain.helpers.toResult
 import javax.inject.Inject
 
 class CredentialsRepository @Inject constructor(
     private val datasource: CredentialsDatasource,
+    private val tokenManager: UserTokenManager,
+    private val badCredentialsCallback: ExpiredCredentialsCallback,
 ) {
 
     suspend fun login(code: String) =
         datasource.authenticateUser(code).toResult {}
 
-    fun isUserLoggedIn() = datasource.getAccessToken() != null
+    fun isUserLoggedIn() = tokenManager.getAccessToken() != null
 
-    fun getUserLoggedOffNotifier() = datasource.getBadAuthChanel()
+    fun getUserLoggedOffNotifier() = badCredentialsCallback.getExpiredCredentialsChanel()
 }
