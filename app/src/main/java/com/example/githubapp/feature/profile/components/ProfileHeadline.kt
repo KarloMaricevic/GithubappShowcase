@@ -30,7 +30,7 @@ fun ProfileHeadline(
             .padding(
                 top = 12.dp,
                 bottom = 2.dp
-            )
+            ),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -39,11 +39,11 @@ fun ProfileHeadline(
                 image = profile.avatarUrl,
                 modifier = Modifier
                     .size(70.dp)
-                    .clip(CircleShape)
+                    .clip(CircleShape),
             )
             Column(
                 modifier = Modifier.padding(start = 12.dp),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
                 if (profile.name != null) {
                     Text(text = profile.name, Modifier.padding(bottom = 8.dp))
@@ -51,7 +51,7 @@ fun ProfileHeadline(
                 Text(text = profile.login, color = gray500)
             }
         }
-        Text(text = profile.bio ?: "", Modifier.padding(top = 12.dp))
+        Text(text = profile.bio ?: "", modifier = Modifier.padding(top = 12.dp))
     }
 }
 
@@ -64,7 +64,7 @@ fun ProfileHeadlinePreview() {
             login = "name",
             name = "KarloMaricevic",
             bio = "This is users bio is a long text",
-            url = ""
+            url = "",
         )
     )
 }

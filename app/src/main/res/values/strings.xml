@@ -20,4 +20,5 @@
 
     <string name="issues">Issues</string>
     <string name="pull_requests">Pull requests</string>
+    <string name="no_items">No items</string>
 </resources>

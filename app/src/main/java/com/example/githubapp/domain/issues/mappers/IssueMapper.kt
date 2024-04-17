@@ -32,9 +32,8 @@ class IssueMapper @Inject constructor(
         repository = repositoryMapper.map(response.repository),
     )
 
-    private fun mapAuthorInfo(response: AuthorInfoResponse) =
-        AuthorInfo(
-            username = response.username,
-            avatar = Image.RemoteImage(response.avatarUrl),
-        )
+    private fun mapAuthorInfo(response: AuthorInfoResponse) = AuthorInfo(
+        username = response.username,
+        avatar = Image.RemoteImage(response.avatarUrl),
+    )
 }

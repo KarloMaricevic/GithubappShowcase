@@ -42,10 +42,11 @@ fun GithubAppTheme(
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
-            val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.surface.toArgb()
+            val window = (view.context as Activity).window.apply {
+                statusBarColor = colorScheme.surface.toArgb()
+                setBackgroundDrawable(ColorDrawable(colorScheme.background.toArgb()))
+            }
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
-            window.setBackgroundDrawable(ColorDrawable(colorScheme.background.toArgb()))
         }
     }
     MaterialTheme(

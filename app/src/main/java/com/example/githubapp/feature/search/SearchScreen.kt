@@ -1,7 +1,6 @@
 package com.example.githubapp.feature.search
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,12 +20,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.githubapp.R
 import com.example.githubapp.core.components.SimpleLazyColumn
-import com.example.githubapp.designSystem.theme.black
-import com.example.githubapp.designSystem.theme.white
 import com.example.githubapp.feature.search.components.RepositoryItem
 import com.example.githubapp.feature.search.components.SearchBar
-import com.example.githubapp.feature.search.model.SearchScreenEvent.onOpenFiltersClicked
-import com.example.githubapp.feature.search.model.SearchScreenEvent.onSearchTextChanged
+import com.example.githubapp.feature.search.model.SearchScreenEvent.OnOpenFiltersClicked
+import com.example.githubapp.feature.search.model.SearchScreenEvent.OnSearchTextChanged
 import com.example.githubapp.feature.search.viewmodel.SearchViewModel
 
 @Composable
@@ -44,8 +41,8 @@ fun SearchScreen(
     ) {
         SearchBar(
             text = state.searchText,
-            onTextChange = { text -> viewModel.onEvent(onSearchTextChanged(text)) },
-            onConfigureClicked = { viewModel.onEvent(onOpenFiltersClicked) },
+            onTextChange = { text -> viewModel.onEvent(OnSearchTextChanged(text)) },
+            onConfigureClicked = { viewModel.onEvent(OnOpenFiltersClicked) },
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(top = 8.dp)

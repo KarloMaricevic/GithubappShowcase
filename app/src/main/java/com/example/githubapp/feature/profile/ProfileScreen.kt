@@ -33,9 +33,7 @@ fun ProfileScreen(
     paddingValues: PaddingValues,
     viewModel: ProfileViewModel = hiltViewModel(),
 ) {
-
     val viewState by viewModel.viewState.collectAsState()
-
     if (!viewState.isError) {
         Surface(
             shadowElevation = 2.dp,
@@ -44,7 +42,7 @@ fun ProfileScreen(
             Column(
                 Modifier
                     .padding(8.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_share),

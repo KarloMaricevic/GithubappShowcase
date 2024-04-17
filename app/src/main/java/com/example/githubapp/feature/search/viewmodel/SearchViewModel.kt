@@ -7,8 +7,8 @@ import com.example.githubapp.core.base.BaseViewModel
 import com.example.githubapp.core.base.TIMEOUT_DELAY
 import com.example.githubapp.domain.search.usecase.SearchForRepository
 import com.example.githubapp.feature.search.model.SearchScreenEvent
-import com.example.githubapp.feature.search.model.SearchScreenEvent.onOpenFiltersClicked
-import com.example.githubapp.feature.search.model.SearchScreenEvent.onSearchTextChanged
+import com.example.githubapp.feature.search.model.SearchScreenEvent.OnOpenFiltersClicked
+import com.example.githubapp.feature.search.model.SearchScreenEvent.OnSearchTextChanged
 import com.example.githubapp.feature.search.model.SearchScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,15 +54,13 @@ class SearchViewModel @Inject constructor(
     ).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(TIMEOUT_DELAY),
-        initialValue = SearchScreenState()
+        initialValue = SearchScreenState(),
     )
 
     override fun onEvent(event: SearchScreenEvent) {
         when (event) {
-            is onSearchTextChanged -> searchText.update { event.text }
-            is onOpenFiltersClicked -> {
-                // TODO
-            }
+            is OnSearchTextChanged -> searchText.update { event.text }
+            is OnOpenFiltersClicked -> {}
         }
     }
 }

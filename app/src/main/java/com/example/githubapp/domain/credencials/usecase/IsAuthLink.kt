@@ -18,5 +18,4 @@ class IsAuthLink @Inject constructor() {
         val redirectUrlState = redirectUrl.substring(indexOfStateValue)
         return redirectUrl.startsWith(ApiConstants.BASE_AUTH_REDIRECT_URL) && redirectUrlState == authLink.state
     }
-
 }

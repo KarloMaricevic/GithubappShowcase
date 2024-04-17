@@ -43,7 +43,7 @@ fun GithubAppLabel(
                 .background(indicatorBackground)
                 .size(28.dp)
                 .padding(6.dp),
-            tint = white
+            tint = white,
         )
         Text(
             text = label,

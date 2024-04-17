@@ -32,7 +32,7 @@ fun Image(
                 placeholder = ColorPainter(MaterialTheme.colorScheme.background),
                 contentDescription = contentDescription,
                 contentScale = ContentScale.Crop,
-                modifier = modifier
+                modifier = modifier,
             )
         }
 

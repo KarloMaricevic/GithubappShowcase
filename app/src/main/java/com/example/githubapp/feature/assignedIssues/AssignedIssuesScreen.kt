@@ -48,12 +48,12 @@ fun AssignedIssuesScreen(
                     .clip(CircleShape)
                     .clickable { viewModel.onEvent(OnBackClicked) }
                     .padding(4.dp)
-                    .size(30.dp)
+                    .size(30.dp),
             )
             Text(
                 text = stringResource(R.string.issues),
                 style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(start = 16.dp)
+                modifier = Modifier.padding(start = 16.dp),
             )
         }
         SimpleLazyColumn(
@@ -64,10 +64,10 @@ fun AssignedIssuesScreen(
                     issue = issue,
                     modifier = Modifier.clickable {
                         viewModel.onEvent(OnIssueClicked(issue.id))
-                    }
+                    },
                 )
             },
-            noItemsItem = { Text(text = "No items") }
+            noItemsItem = { Text(text = stringResource(R.string.no_items)) }
         )
     }
 }

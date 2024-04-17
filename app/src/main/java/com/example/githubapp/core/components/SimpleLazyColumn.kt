@@ -37,24 +37,18 @@ fun <T : Any> SimpleLazyColumn(
     noItemsItem: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     itemSpacing: Dp = 0.dp,
-    topInset: Dp = 16.dp
+    topInset: Dp = 16.dp,
 ) {
     Box(modifier) {
         if (items.loadState.append.endOfPaginationReached && items.itemCount == 0) {
             noItemsItem()
         } else {
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(itemSpacing),
-            ) {
-                item {
-                    Box(modifier = Modifier.height(topInset))
-                }
+            LazyColumn(verticalArrangement = Arrangement.spacedBy(itemSpacing)) {
+                item { Box(Modifier.height(topInset)) }
                 items(
-                    items.itemCount,
-                    key = items.itemKey { item -> item.key() }
-                ) { item ->
-                    uiItemBuilder(items[item]!!)
-                }
+                    count = items.itemCount,
+                    key = items.itemKey { item -> item.key() },
+                ) { itemPosition -> uiItemBuilder(items[itemPosition]!!) }
                 when {
                     items.loadState.refresh == LoadState.Loading -> item {
                         LoadingFirstPage(Modifier.fillParentMaxSize())
@@ -64,11 +58,10 @@ fun <T : Any> SimpleLazyColumn(
                         LoadingNextPageIndicator(Modifier.padding(top = 24.dp, bottom = 16.dp))
                     }
 
-
                     items.loadState.refresh is LoadState.Error -> item {
                         ErrorWhileLoadingFirstPage(
-                            { items.retry() },
-                            Modifier.fillParentMaxSize()
+                            onRetryClicked = { items.retry() },
+                            modifier = Modifier.fillParentMaxSize(),
                         )
                     }
 
@@ -83,7 +76,6 @@ fun <T : Any> SimpleLazyColumn(
         }
     }
 }
-
 
 @Composable
 fun LoadingFirstPage(modifier: Modifier = Modifier) {

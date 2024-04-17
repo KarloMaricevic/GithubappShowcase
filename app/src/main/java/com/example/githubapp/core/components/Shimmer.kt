@@ -13,24 +13,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
-
 @Composable
 fun Shimmer(
     modifier: Modifier,
     color: Color = Color.Gray,
 ) {
-    val infiniteTransition = rememberInfiniteTransition()
-
+    val infiniteTransition = rememberInfiniteTransition("")
     val placeHolderEndColor = color.copy(alpha = 0.2f)
-
-    val color by infiniteTransition.animateColor(
+    val animatedColor by infiniteTransition.animateColor(
         initialValue = color,
         targetValue = placeHolderEndColor,
         animationSpec = infiniteRepeatable(
             animation = tween(1000, easing = LinearEasing),
             repeatMode = RepeatMode.Reverse,
         ),
+        label = "",
     )
-
-    Box(modifier.background(color))
+    Box(modifier.background(animatedColor))
 }

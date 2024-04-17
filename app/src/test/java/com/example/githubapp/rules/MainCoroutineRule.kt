@@ -12,7 +12,7 @@ import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
 class MainCoroutineRule(
-    val dispatcher: TestDispatcher = StandardTestDispatcher(),
+    private val dispatcher: TestDispatcher = StandardTestDispatcher(),
 ) : TestWatcher() {
     override fun starting(description: Description) {
         ArchTaskExecutor.getInstance().setDelegate(

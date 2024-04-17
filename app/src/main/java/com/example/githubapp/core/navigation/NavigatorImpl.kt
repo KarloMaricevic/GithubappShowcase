@@ -37,9 +37,7 @@ class NavigatorImpl @Inject constructor(
         }
     }
 
-    override suspend fun emitDestination(
-        navigationEvent: NavigationEvent,
-    ) {
+    override suspend fun emitDestination(navigationEvent: NavigationEvent) {
         _navigationEvent.send(navigationEvent)
     }
 }

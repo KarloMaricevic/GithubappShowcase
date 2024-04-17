@@ -54,20 +54,19 @@ class NetworkModule {
         chuckerInterceptor: ChuckerInterceptor,
         authTokenHeaderInterceptor: AuthTokenHeaderInterceptor,
         accessForbiddenAuthInterceptor: AccessForbiddenAuthInterceptor,
-    ) =
-        OkHttpClient.Builder().apply {
-            if (BuildConfig.DEBUG) {
-                addInterceptor(
-                    HttpLoggingInterceptor().apply {
-                        setLevel(Level.BODY)
-                    }
-                )
-            }
-            addInterceptor(chuckerInterceptor)
-            addNetworkInterceptor(authTokenHeaderInterceptor)
-            addNetworkInterceptor(accessForbiddenAuthInterceptor)
-            connectTimeout(CONNECTION_TIMEOUT_IN_MINUTES, TimeUnit.MINUTES)
-        }.build()
+    ) = OkHttpClient.Builder().apply {
+        if (BuildConfig.DEBUG) {
+            addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    setLevel(Level.BODY)
+                }
+            )
+        }
+        addInterceptor(chuckerInterceptor)
+        addNetworkInterceptor(authTokenHeaderInterceptor)
+        addNetworkInterceptor(accessForbiddenAuthInterceptor)
+        connectTimeout(CONNECTION_TIMEOUT_IN_MINUTES, TimeUnit.MINUTES)
+    }.build()
 
     @Provides
     @Singleton
@@ -75,19 +74,18 @@ class NetworkModule {
     fun provideCredentialsOkHttpClient(
         jsonAcceptHeaderInterceptor: JsonAcceptHeaderInterceptor,
         checkerInterceptor: ChuckerInterceptor,
-    ) =
-        OkHttpClient.Builder().apply {
-            if (BuildConfig.DEBUG) {
-                addInterceptor(
-                    HttpLoggingInterceptor().apply {
-                        setLevel(Level.BODY)
-                    }
-                )
-            }
-            addInterceptor(checkerInterceptor)
-            addNetworkInterceptor(jsonAcceptHeaderInterceptor)
-            connectTimeout(CONNECTION_TIMEOUT_IN_MINUTES, TimeUnit.MINUTES)
-        }.build()
+    ) = OkHttpClient.Builder().apply {
+        if (BuildConfig.DEBUG) {
+            addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    setLevel(Level.BODY)
+                }
+            )
+        }
+        addInterceptor(checkerInterceptor)
+        addNetworkInterceptor(jsonAcceptHeaderInterceptor)
+        connectTimeout(CONNECTION_TIMEOUT_IN_MINUTES, TimeUnit.MINUTES)
+    }.build()
 
     @Provides
     @Singleton
@@ -100,7 +98,7 @@ class NetworkModule {
     @Named(DATA)
     fun provideDataApiRetrofit(
         @Named(DATA) httpClient: OkHttpClient,
-        parser: ObjectMapper
+        parser: ObjectMapper,
     ): Retrofit = Retrofit.Builder()
         .baseUrl(ApiConstants.BASE_DATA_API_URL)
         .client(httpClient)
@@ -112,7 +110,7 @@ class NetworkModule {
     @Provides
     fun provideLoginRetrofit(
         @Named(CREDENTIALS) httpClient: OkHttpClient,
-        parser: ObjectMapper
+        parser: ObjectMapper,
     ): Retrofit = Retrofit.Builder()
         .baseUrl(ApiConstants.BASE_CREDENCAILS_API_URL)
         .client(httpClient)

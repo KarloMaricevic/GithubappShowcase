@@ -37,6 +37,6 @@ fun LoginScreen(
             }
         },
         update = { webView -> webView.loadUrl(state.url) },
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     )
 }

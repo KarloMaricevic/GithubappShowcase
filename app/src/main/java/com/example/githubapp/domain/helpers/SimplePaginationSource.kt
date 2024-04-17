@@ -1,7 +1,8 @@
 package com.example.githubapp.domain.helpers
 
 import androidx.paging.PagingSource
-import androidx.paging.PagingSource.LoadResult.*
+import androidx.paging.PagingSource.LoadResult.Error
+import androidx.paging.PagingSource.LoadResult.Page
 import androidx.paging.PagingState
 import com.example.githubapp.domain.models.PagedData
 

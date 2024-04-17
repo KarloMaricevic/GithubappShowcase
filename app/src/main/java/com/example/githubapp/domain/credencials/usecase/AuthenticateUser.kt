@@ -4,9 +4,9 @@ import com.example.githubapp.domain.credencials.CredentialsRepository
 import javax.inject.Inject
 
 class AuthenticateUser @Inject constructor(
-    private val credentialsRepository: CredentialsRepository,
+    private val repository: CredentialsRepository,
 ) {
 
     suspend operator fun invoke(code: String) =
-        credentialsRepository.login(code)
+        repository.login(code)
 }

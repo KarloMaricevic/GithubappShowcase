@@ -10,7 +10,7 @@ import com.example.githubapp.domain.search.mappers.RepositoryMapper
 import javax.inject.Inject
 
 class SearchRepository @Inject constructor(
-    private val searchDatasource: SearchDatasource,
+    private val datasource: SearchDatasource,
     private val repositoryMapper: RepositoryMapper,
 ) {
 
@@ -21,7 +21,7 @@ class SearchRepository @Inject constructor(
     private suspend fun getRepositories(
         query: String,
         page: Int,
-    ) = searchDatasource.getRepositories(query, page).toResult { content ->
+    ) = datasource.getRepositories(query, page).toResult { content ->
         PagedData(
             isLastPage = content.items.isEmpty(),
             items = content.items.map { item -> repositoryMapper.map(item) }
@@ -30,8 +30,6 @@ class SearchRepository @Inject constructor(
 
     fun getRepositories(query: String) = Pager(
         config = PagingConfig(PAGE_SIZE),
-        pagingSourceFactory = {
-            SimplePaginationSource { page -> getRepositories(query, page) }
-        }
+        pagingSourceFactory = { SimplePaginationSource { page -> getRepositories(query, page) } }
     ).flow
 }

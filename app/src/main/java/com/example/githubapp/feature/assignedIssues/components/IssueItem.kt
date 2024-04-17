@@ -30,10 +30,10 @@ import com.example.githubapp.domain.search.models.Repository
 @Composable
 fun IssueItem(issue: Issue, modifier: Modifier = Modifier) {
     Row(
-        modifier = modifier
+        modifier
             .background(MaterialTheme.colorScheme.surface)
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(8.dp),
     ) {
         Icon(
             painter = painterResource(
@@ -47,7 +47,7 @@ fun IssueItem(issue: Issue, modifier: Modifier = Modifier) {
                 OPEN -> green500
                 CLOSED -> purple
             },
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(24.dp),
         )
         Column(Modifier.padding(horizontal = 8.dp)) {
             Text(
@@ -86,7 +86,7 @@ fun OpenedIssuePreview() {
                 authorInfo = AuthorInfo("", Image.LocalImage(R.drawable.ic_launcher_foreground)),
                 description = "",
                 status = OPEN,
-                title = "ShorTitle"
+                title = "ShorTitle",
             )
         )
     }
@@ -112,7 +112,7 @@ fun ClosedIssuePreview() {
                 authorInfo = AuthorInfo("", Image.LocalImage(R.drawable.ic_launcher_foreground)),
                 description = "",
                 status = CLOSED,
-                title = List(20) { "LongTitle" }.joinToString()
+                title = List(20) { "LongTitle" }.joinToString(),
             )
         )
     }

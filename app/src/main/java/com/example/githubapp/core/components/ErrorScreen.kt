@@ -32,7 +32,7 @@ fun ErrorScreen(
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier
                 .padding(horizontal = 12.dp)
-                .padding(bottom = 20.dp)
+                .padding(bottom = 20.dp),
         )
         Button(onClick = { onRetryClicked() }) {
             Text(

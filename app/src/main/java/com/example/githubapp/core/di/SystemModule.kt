@@ -14,7 +14,5 @@ interface SystemModule {
 
     @Binds
     @Singleton
-    fun bindNavigator(
-        systemCallImpl: SystemCallImpl,
-    ): SystemCall
+    fun bindNavigator(systemCallImpl: SystemCallImpl): SystemCall
 }

@@ -21,8 +21,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.githubapp.R
 import com.example.githubapp.core.components.Image
+import com.example.githubapp.designSystem.theme.GithubAppTheme
 import com.example.githubapp.designSystem.theme.gray500
-import com.example.githubapp.designSystem.theme.yelow
+import com.example.githubapp.designSystem.theme.yellow
 import com.example.githubapp.domain.models.AuthorInfo
 import com.example.githubapp.domain.search.models.Repository
 
@@ -35,7 +36,7 @@ fun RepositoryItem(
         modifier
             .background(MaterialTheme.colorScheme.surface)
             .padding(8.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -45,7 +46,7 @@ fun RepositoryItem(
                 contentDescription = stringResource(R.string.default_image_content_description),
                 modifier = Modifier
                     .clip(CircleShape)
-                    .size(24.dp)
+                    .size(24.dp),
             )
             Text(
                 text = repository.author.username,
@@ -64,25 +65,25 @@ fun RepositoryItem(
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 modifier = Modifier.padding(end = 24.dp),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
             if (!repository.description.isNullOrEmpty()) {
                 Text(
                     text = repository.description,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 3,
-                    modifier = Modifier.padding(top = 4.dp)
+                    modifier = Modifier.padding(top = 4.dp),
                 )
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = 16.dp)
+                modifier = Modifier.padding(top = 16.dp),
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_star_filled),
                     contentDescription = stringResource(R.string.default_icon_content_description),
-                    tint = yelow,
-                    modifier = Modifier.padding(end = 4.dp)
+                    tint = yellow,
+                    modifier = Modifier.padding(end = 4.dp),
                 )
                 Text(text = repository.staredTimes.toString())
                 if (!repository.language.isNullOrEmpty()) {
@@ -100,37 +101,41 @@ fun RepositoryItem(
 @Preview
 @Composable
 fun RepositoryItemPreview() {
-    RepositoryItem(
-        Repository(
-            id = 1,
-            name = "RepoName",
-            author = AuthorInfo(
-                username = "Karlo",
-                avatar = com.example.githubapp.domain.models.Image.LocalImage(R.drawable.ic_launcher_foreground),
-            ),
-            fullName = "Karlo/Kotlin",
-            description = "Description",
-            language = "Kotlin",
-            staredTimes = 1900
+    GithubAppTheme {
+        RepositoryItem(
+            Repository(
+                id = 1,
+                name = "RepoName",
+                author = AuthorInfo(
+                    username = "Karlo",
+                    avatar = com.example.githubapp.domain.models.Image.LocalImage(R.drawable.ic_launcher_foreground),
+                ),
+                fullName = "Karlo/Kotlin",
+                description = "Description",
+                language = "Kotlin",
+                staredTimes = 1900,
+            )
         )
-    )
+    }
 }
 
 @Preview
 @Composable
 fun RepositoryItemLongTextPreview() {
-    RepositoryItem(
-        Repository(
-            id = 1,
-            name = List(10) { "LongRepoName" }.joinToString(""),
-            author = AuthorInfo(
-                username = List(10) { "LongUsername" }.joinToString(""),
-                avatar = com.example.githubapp.domain.models.Image.LocalImage(R.drawable.ic_launcher_foreground),
-            ),
-            fullName = "Karlo/Kotlin",
-            description = List(30) { "LongDescription" }.joinToString(""),
-            language = "Kotlin",
-            staredTimes = 1900,
+    GithubAppTheme {
+        RepositoryItem(
+            Repository(
+                id = 1,
+                name = List(10) { "LongRepoName" }.joinToString(""),
+                author = AuthorInfo(
+                    username = List(10) { "LongUsername" }.joinToString(""),
+                    avatar = com.example.githubapp.domain.models.Image.LocalImage(R.drawable.ic_launcher_foreground),
+                ),
+                fullName = "Karlo/Kotlin",
+                description = List(30) { "LongDescription" }.joinToString(""),
+                language = "Kotlin",
+                staredTimes = 1900,
+            )
         )
-    )
+    }
 }

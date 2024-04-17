@@ -9,13 +9,17 @@ class SystemCallImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : SystemCall {
 
+    companion object {
+        private const val TEXT_PLAIN_TYPE = "text/plain"
+    }
+
     override fun share(text: String) {
         context.startActivity(
             Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, text)
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                type = "text/plain"
+                type = TEXT_PLAIN_TYPE
             }
         )
     }

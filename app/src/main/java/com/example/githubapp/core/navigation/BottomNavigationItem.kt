@@ -16,6 +16,7 @@ sealed class BottomNavigationItem(
     val icon: ImageVector,
     val route: String
 ) {
+
     private data object Home : BottomNavigationItem(
         R.string.home_screen_first_bottom_tab_label,
         Icons.Filled.Home,
@@ -25,13 +26,13 @@ sealed class BottomNavigationItem(
     private data object Search : BottomNavigationItem(
         R.string.home_screen_search_bottom_tab_label,
         Icons.Filled.Search,
-        SearchScreenRouter.route()
+        SearchScreenRouter.route(),
     )
 
     private data object Profile : BottomNavigationItem(
         R.string.home_screen_profile_bottom_tab_label,
         Icons.Filled.Person,
-        ProfileScreenRouter.route()
+        ProfileScreenRouter.route(),
     )
 
     companion object {
@@ -42,4 +43,3 @@ sealed class BottomNavigationItem(
         )
     }
 }
-

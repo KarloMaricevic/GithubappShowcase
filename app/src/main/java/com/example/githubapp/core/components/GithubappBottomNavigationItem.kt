@@ -25,7 +25,7 @@ fun RowScope.GithubappBottomNavigationItem(
                 contentDescription = stringResource(R.string.default_icon_content_description)
             )
         },
-        label = { Text(stringResource(id = screen.label)) },
+        label = { Text(stringResource(screen.label)) },
         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
         onClick = {
             navController.navigate(screen.route) {

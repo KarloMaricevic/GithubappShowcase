@@ -6,5 +6,6 @@ import javax.inject.Inject
 class IsUserLoggedIn @Inject constructor(
     private val repository: CredentialsRepository,
 ) {
+
     operator fun invoke() = repository.isUserLoggedIn()
 }

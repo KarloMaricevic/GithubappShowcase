@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.githubapp.R
 import com.example.githubapp.core.components.GithubAppLabel
+import com.example.githubapp.designSystem.theme.GithubAppTheme
 import com.example.githubapp.designSystem.theme.Typography
 import com.example.githubapp.designSystem.theme.green300
 import com.example.githubapp.designSystem.theme.lightBlue
@@ -32,7 +33,7 @@ fun OverviewScreen(
             .padding(paddingValues)
             .background(MaterialTheme.colorScheme.surface)
             .padding(bottom = 16.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
         Text(
             text = stringResource(R.string.overview_screen_my_work_title),
@@ -61,5 +62,7 @@ fun OverviewScreen(
 @Preview
 @Composable
 fun ProfileScreenPreview() {
-    OverviewScreen(paddingValues = PaddingValues())
+    GithubAppTheme {
+        OverviewScreen(paddingValues = PaddingValues())
+    }
 }

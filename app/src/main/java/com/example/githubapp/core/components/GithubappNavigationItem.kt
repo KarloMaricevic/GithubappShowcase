@@ -14,9 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.githubapp.designSystem.theme.GithubAppTheme
 import com.example.githubapp.designSystem.theme.blue
 import com.example.githubapp.designSystem.theme.gray500
-import com.example.githubapp.designSystem.theme.lightBlue
 
 @Composable
 fun GithubappNavigationMenu(
@@ -26,7 +26,7 @@ fun GithubappNavigationMenu(
     NavigationBar(
         modifier = modifier,
         content = content,
-        tonalElevation = 0.dp
+        tonalElevation = 0.dp,
     )
 }
 
@@ -67,21 +67,22 @@ fun GithubappBottomAppBarPreview() {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
 fun GithubappNavigationItemPreview() {
-    Row {
-        GithubappNavigationItem(
-            selected = true,
-            onClick = {},
-            label = { Text(text = "Favorite") },
-            icon = { Icon(Icons.Default.Favorite, contentDescription = "") },
-        )
-        GithubappNavigationItem(
-            selected = false,
-            onClick = {},
-            icon = { Icon(Icons.Default.Delete, contentDescription = "") },
-            label = { Text(text = "Delete") },
-        )
+    GithubAppTheme {
+        Row {
+            GithubappNavigationItem(
+                selected = true,
+                onClick = {},
+                label = { Text(text = "Favorite") },
+                icon = { Icon(Icons.Default.Favorite, contentDescription = "") },
+            )
+            GithubappNavigationItem(
+                selected = false,
+                onClick = {},
+                icon = { Icon(Icons.Default.Delete, contentDescription = "") },
+                label = { Text(text = "Delete") },
+            )
+        }
     }
 }

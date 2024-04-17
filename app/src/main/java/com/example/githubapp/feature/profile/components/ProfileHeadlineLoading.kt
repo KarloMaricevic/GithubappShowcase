@@ -29,7 +29,7 @@ fun ProfileHeadlineLoading(
             .padding(
                 top = 12.dp,
                 bottom = 2.dp
-            )
+            ),
     )
     {
         Row(
@@ -38,22 +38,22 @@ fun ProfileHeadlineLoading(
             Shimmer(
                 modifier = Modifier
                     .size(70.dp)
-                    .clip(CircleShape)
+                    .clip(CircleShape),
             )
             Column(
                 modifier = Modifier.padding(start = 12.dp),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
                 Shimmer(
                     Modifier
                         .padding(bottom = 8.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .size(width = 200.dp, height = 18.dp)
+                        .size(width = 200.dp, height = 18.dp),
                 )
                 Shimmer(
                     Modifier
                         .clip(RoundedCornerShape(12.dp))
-                        .size(width = 150.dp, height = 18.dp)
+                        .size(width = 150.dp, height = 18.dp),
                 )
             }
         }
@@ -61,7 +61,7 @@ fun ProfileHeadlineLoading(
             Modifier
                 .padding(top = 12.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .size(width = 250.dp, height = 52.dp)
+                .size(width = 250.dp, height = 52.dp),
         )
     }
 }
@@ -75,7 +75,7 @@ fun ProfileHeadlineLoadingPreview() {
             login = "name",
             name = "KarloMaricevic",
             bio = "This is users bio is a long text",
-            url = ""
+            url = "",
         )
     )
 }

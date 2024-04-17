@@ -37,7 +37,7 @@ class ProfileViewModel @Inject constructor(
     ).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(TIMEOUT_DELAY),
-        initialValue = ProfileScreenState()
+        initialValue = ProfileScreenState(),
     )
 
     init {

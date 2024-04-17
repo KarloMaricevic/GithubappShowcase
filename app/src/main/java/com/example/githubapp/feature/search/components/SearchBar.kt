@@ -44,10 +44,8 @@ fun SearchBar(
     onConfigureClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
-
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.height(IntrinsicSize.Min),
@@ -55,7 +53,7 @@ fun SearchBar(
         Icon(
             imageVector = Icons.Filled.Search,
             contentDescription = stringResource(R.string.default_icon_content_description),
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp),
         )
         BasicTextField(
             value = text,
@@ -66,7 +64,7 @@ fun SearchBar(
             }),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Search
+                imeAction = ImeAction.Search,
             ),
             singleLine = true,
             cursorBrush = SolidColor(blue),
@@ -99,7 +97,7 @@ fun SearchBar(
                 .clip(CircleShape)
                 .clickable { onConfigureClicked() }
                 .padding(8.dp)
-                .size(24.dp)
+                .size(24.dp),
         )
     }
 }
@@ -127,4 +125,3 @@ fun SearchBarHintPreview() {
         )
     }
 }
-

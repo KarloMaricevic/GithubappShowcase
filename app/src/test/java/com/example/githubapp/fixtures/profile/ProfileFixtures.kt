@@ -44,7 +44,6 @@ class FakeFactoryGetAuthenticatedUserProfile(
     fun shouldCallFail(should: Boolean) {
         shouldCallFail = should
     }
-
 }
 
 private const val PROFILE_LOGIN = "profileLogin"

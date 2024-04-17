@@ -51,7 +51,7 @@ fun HomeScreen() {
                 composable(OverviewScreenRouter.route()) {
                     OverviewScreen(
                         viewModel = overviewViewModel,
-                        paddingValues = innerPadding
+                        paddingValues = innerPadding,
                     )
                 }
                 composable(SearchScreenRouter.route()) {
