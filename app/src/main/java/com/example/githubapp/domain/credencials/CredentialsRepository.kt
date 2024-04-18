@@ -18,4 +18,6 @@ class CredentialsRepository @Inject constructor(
     fun isUserLoggedIn() = tokenManager.getAccessToken() != null
 
     fun getUserLoggedOffNotifier() = badCredentialsCallback.getExpiredCredentialsChanel()
+
+    fun logout() = tokenManager.removeAccessToken()
 }

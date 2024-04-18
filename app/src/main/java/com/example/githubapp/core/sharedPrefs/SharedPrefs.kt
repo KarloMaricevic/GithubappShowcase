@@ -21,7 +21,7 @@ class SharedPrefs @Inject constructor(
 
     fun putString(
         key: String,
-        value: String,
+        value: String?,
     ): Boolean {
         return sharedPreferences.edit().putString(key, value).commit()
     }

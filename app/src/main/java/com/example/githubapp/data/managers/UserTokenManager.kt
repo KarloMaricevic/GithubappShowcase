@@ -26,4 +26,9 @@ class UserTokenManager @Inject constructor(
         sharedPrefs.putString(ACCESS_TOKEN_SHARED_PREFS_KEY, token)
         cachedToken = token
     }
+
+    fun removeAccessToken() {
+        sharedPrefs.putString(ACCESS_TOKEN_SHARED_PREFS_KEY, null)
+        cachedToken = null
+    }
 }
