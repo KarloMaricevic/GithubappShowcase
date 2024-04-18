@@ -40,6 +40,14 @@ class LoginViewModel @Inject constructor(
                         state.update { state -> state.copy(isLoading = true) }
                         authenticateUser(code).fold(
                             {
+                                state.update { state ->
+                                    state.copy(
+                                        isLoading = false,
+                                        isError = true,
+                                    )
+                                }
+                            },
+                            {
                                 navigator.emitDestination(
                                     NavigationEvent.Destination(
                                         HomeScreenRouter.route()
@@ -51,14 +59,6 @@ class LoginViewModel @Inject constructor(
                                     }
                                 )
                             },
-                            {
-                                state.update { state ->
-                                    state.copy(
-                                        isLoading = false,
-                                        isError = true,
-                                    )
-                                }
-                            }
                         )
                     }
                 } else {

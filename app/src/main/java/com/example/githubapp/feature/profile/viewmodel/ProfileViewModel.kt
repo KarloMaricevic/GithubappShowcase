@@ -1,5 +1,6 @@
 package com.example.githubapp.feature.profile.viewmodel
 
+import android.webkit.CookieManager
 import androidx.lifecycle.viewModelScope
 import com.example.githubapp.R
 import com.example.githubapp.core.base.BaseViewModel
@@ -88,17 +89,19 @@ class ProfileViewModel @Inject constructor(
             is OnLogoutCancel -> dialog.update { null }
             is OnLogoutConfirmation -> {
                 logout()
-                viewModelScope.launch {
-                    navigator.emitDestination(
-                        NavigationEvent.Destination(
-                            destination = LoginScreenRouter.route(),
-                            builder = {
-                                this.popUpTo(HomeScreenRouter.route()) {
-                                    this.inclusive = true
-                                }
-                            },
-                        ),
-                    )
+                CookieManager.getInstance().removeAllCookies {
+                    viewModelScope.launch {
+                        navigator.emitDestination(
+                            NavigationEvent.Destination(
+                                destination = LoginScreenRouter.route(),
+                                builder = {
+                                    this.popUpTo(HomeScreenRouter.route()) {
+                                        this.inclusive = true
+                                    }
+                                },
+                            ),
+                        )
+                    }
                 }
             }
         }
