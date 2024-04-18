@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.example.githubapp.data.issues.IssuesDatasource
 import com.example.githubapp.domain.helpers.SimplePaginationSource
-import com.example.githubapp.domain.helpers.toResult
+import com.example.githubapp.domain.helpers.toEither
 import com.example.githubapp.domain.issues.mappers.IssueMapper
 import com.example.githubapp.domain.models.PagedData
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class IssuesRepository @Inject constructor(
     ).flow
 
     private suspend fun getAuthenticatedUserIssues(page: Int) =
-        datasource.getIssuesAndPullRequestsAssignedToUser(page).toResult { response ->
+        datasource.getIssuesAndPullRequestsAssignedToUser(page).toEither { response ->
             PagedData(
                 isLastPage = response.isEmpty(),
                 items = response

@@ -1,17 +1,25 @@
 package com.example.githubapp.domain.helpers
 
+import arrow.core.Either
+import com.example.githubapp.core.models.Failure
 import com.example.githubapp.data.models.NetworkResource
 
-fun <T> NetworkResource<T>.toResult(): Result<T> = when (this) {
-    is NetworkResource.Success -> Result.success(value)
-    is NetworkResource.GenericError -> Result.failure(cause)
-    is NetworkResource.HttpError -> Result.failure(Throwable(message))
-    is NetworkResource.NetworkError -> Result.failure(Throwable(this.toString()))
+fun <T> NetworkResource<T>.toEither() = when (this) {
+    is NetworkResource.Success -> Either.Right(value)
+    is NetworkResource.GenericError -> Either.Left(
+        Failure.ErrorMessage(cause.message ?: "Generic error")
+    )
+
+    is NetworkResource.HttpError -> Either.Left(Failure.ErrorMessage(message))
+    is NetworkResource.NetworkError -> Either.Left(Failure.ErrorMessage("Network error"))
 }
 
-fun <T, R> NetworkResource<T>.toResult(valueMapper: (T) -> R) = when (this) {
-    is NetworkResource.Success -> Result.success(valueMapper(value))
-    is NetworkResource.GenericError -> Result.failure(cause)
-    is NetworkResource.HttpError -> Result.failure(Throwable(message))
-    is NetworkResource.NetworkError -> Result.failure(Throwable(this.toString()))
+fun <T, R> NetworkResource<T>.toEither(valueMapper: (T) -> R) = when (this) {
+    is NetworkResource.Success -> Either.Right(valueMapper(value))
+    is NetworkResource.GenericError -> Either.Left(
+        Failure.ErrorMessage(cause.message ?: "Generic error")
+    )
+
+    is NetworkResource.HttpError -> Either.Left(Failure.ErrorMessage(message))
+    is NetworkResource.NetworkError -> Either.Left(Failure.ErrorMessage("Network error"))
 }

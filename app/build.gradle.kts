@@ -49,6 +49,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.arrow.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.pagging.runtime)
     implementation(libs.androidx.pagging.compose)

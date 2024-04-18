@@ -3,7 +3,7 @@ package com.example.githubapp.domain.credencials
 import com.example.githubapp.data.credencials.CredentialsDatasource
 import com.example.githubapp.data.managers.ExpiredCredentialsCallback
 import com.example.githubapp.data.managers.UserTokenManager
-import com.example.githubapp.domain.helpers.toResult
+import com.example.githubapp.domain.helpers.toEither
 import javax.inject.Inject
 
 class CredentialsRepository @Inject constructor(
@@ -13,7 +13,7 @@ class CredentialsRepository @Inject constructor(
 ) {
 
     suspend fun login(code: String) =
-        datasource.authenticateUser(code).toResult {}
+        datasource.authenticateUser(code).toEither {}
 
     fun isUserLoggedIn() = tokenManager.getAccessToken() != null
 

@@ -49,14 +49,14 @@ class ProfileViewModel @Inject constructor(
         isError.update { false }
         viewModelScope.launch {
             getProfile().fold(
+                {
+                    isLoading.update { false }
+                    isError.update { true }
+                },
                 { profile ->
                     isLoading.update { false }
                     this@ProfileViewModel.profile.update { profile }
                 },
-                {
-                    isLoading.update { false }
-                    isError.update { true }
-                }
             )
         }
     }

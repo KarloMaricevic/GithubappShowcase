@@ -1,5 +1,7 @@
 package com.example.githubapp.fixtures.profile
 
+import arrow.core.Either
+import com.example.githubapp.core.models.Failure
 import com.example.githubapp.domain.models.Image
 import com.example.githubapp.domain.models.Profile
 import com.example.githubapp.domain.profile.usecase.GetAuthenticatedUsersProfile
@@ -22,24 +24,24 @@ class FakeSuccessGetAuthenticatedUserProfile(
     private val profileToGive: Profile = buildProfile(),
 ) : GetAuthenticatedUsersProfile {
 
-    override suspend fun invoke(): Result<Profile> = Result.success(profileToGive)
+    override suspend fun invoke() = Either.Right(profileToGive)
 }
 
 class FakeFailureGetAuthenticatedUserProfile(
-    private val throwable: Throwable = Throwable(),
+    private val failure: Failure = Failure.Unknown,
 ) : GetAuthenticatedUsersProfile {
-    override suspend fun invoke() = Result.failure<Profile>(throwable)
+    override suspend fun invoke() = Either.Left(failure)
 }
 
 class FakeFactoryGetAuthenticatedUserProfile(
     private val profileToGive: Profile = buildProfile(),
-    private val throwable: Throwable = Throwable()
+    private val failure: Failure = Failure.Unknown,
 ) : GetAuthenticatedUsersProfile {
 
     private var shouldCallFail = true
 
     override suspend fun invoke() =
-        if (shouldCallFail) Result.failure(throwable) else Result.success(profileToGive)
+        if (shouldCallFail) Either.Left(failure) else Either.Right(profileToGive)
 
     fun shouldCallFail(should: Boolean) {
         shouldCallFail = should

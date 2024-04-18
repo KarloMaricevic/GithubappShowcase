@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.example.githubapp.data.search.SearchDatasource
 import com.example.githubapp.domain.helpers.SimplePaginationSource
-import com.example.githubapp.domain.helpers.toResult
+import com.example.githubapp.domain.helpers.toEither
 import com.example.githubapp.domain.models.PagedData
 import com.example.githubapp.domain.search.mappers.RepositoryMapper
 import javax.inject.Inject
@@ -21,7 +21,7 @@ class SearchRepository @Inject constructor(
     private suspend fun getRepositories(
         query: String,
         page: Int,
-    ) = datasource.getRepositories(query, page).toResult { content ->
+    ) = datasource.getRepositories(query, page).toEither { content ->
         PagedData(
             isLastPage = content.items.isEmpty(),
             items = content.items.map { item -> repositoryMapper.map(item) }

@@ -4,6 +4,7 @@ compileSdk = "34"
 targetSdk = "34"
 androidGradlePlugin = "8.2.2"
 kotlin = "1.9.20"
+arrow = "1.2.0-RC"
 coorutine = "1.6.0"
 splashScreen = "1.0.1"
 hilt = "2.48"
@@ -36,8 +37,9 @@ androidx-compose-foundation = { group = "androidx.compose.foundation", name = "f
 androidx-compose-material = { group = "androidx.compose.material3", name = "material3", version.ref = "compsoseMaterial3" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
-coil-foundation = { group = "io.coil-kt", name = "coil", version.ref = "coil"}
-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
+arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow" }
+coil-foundation = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
@@ -55,8 +57,8 @@ jakson-core = { group = "com.fasterxml.jackson.core", name = "jackson-core", ver
 jakson-kotlin = { group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin", version.ref = "jakson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
-kotest = {  group =  "io.kotest", name = "kotest-runner-junit4", version.ref = "kotest" }
-coorutine-test = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coorutine" }
+kotest = { group = "io.kotest", name = "kotest-runner-junit4", version.ref = "kotest" }
+coorutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coorutine" }
 
 
 [plugins]
