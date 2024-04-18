@@ -3,6 +3,7 @@ package com.example.githubapp.feature.profile
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,8 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.githubapp.R
 import com.example.githubapp.core.components.ErrorScreen
+import com.example.githubapp.core.components.SimpleDialog
 import com.example.githubapp.feature.profile.components.ProfileHeadline
 import com.example.githubapp.feature.profile.components.ProfileHeadlineLoading
+import com.example.githubapp.feature.profile.models.ProfileScreenEvent.OnLogoutClicked
 import com.example.githubapp.feature.profile.models.ProfileScreenEvent.OnReloadClicked
 import com.example.githubapp.feature.profile.models.ProfileScreenEvent.OnShareClicked
 import com.example.githubapp.feature.profile.viewmodel.ProfileViewModel
@@ -44,29 +47,47 @@ fun ProfileScreen(
                     .padding(8.dp)
                     .fillMaxWidth(),
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_share),
-                    contentDescription = stringResource(R.string.default_icon_content_description),
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .then(
-                            if (viewState.profile != null) {
-                                Modifier.clickable { viewModel.onEvent(OnShareClicked) }
-                            } else {
-                                Modifier
-                            }
-                        )
-                        .padding(12.dp)
-                        .size(24.dp)
-                        .align(Alignment.End),
-                    tint = MaterialTheme.colorScheme.primary,
-                )
+                Row(Modifier.align(Alignment.End)) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_share),
+                        contentDescription = stringResource(R.string.default_icon_content_description),
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .then(
+                                if (viewState.profile != null) {
+                                    Modifier.clickable { viewModel.onEvent(OnShareClicked) }
+                                } else {
+                                    Modifier
+                                }
+                            )
+                            .padding(12.dp)
+                            .size(24.dp),
+                        tint = MaterialTheme.colorScheme.primary,
+                    )
+                    Icon(
+                        painter = painterResource(R.drawable.ic_logout),
+                        contentDescription = stringResource(R.string.default_icon_content_description),
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .then(
+                                if (viewState.profile != null) {
+                                    Modifier.clickable { viewModel.onEvent(OnLogoutClicked) }
+                                } else {
+                                    Modifier
+                                }
+                            )
+                            .padding(12.dp)
+                            .size(24.dp),
+                        tint = MaterialTheme.colorScheme.primary,
+                    )
+                }
                 viewState.profile?.let { notNullProfile -> ProfileHeadline(notNullProfile) }
                 if (viewState.isLoading) {
                     ProfileHeadlineLoading()
                 }
             }
         }
+        viewState.dialog?.let { dialog -> SimpleDialog(model = dialog) }
     } else {
         ErrorScreen { viewModel.onEvent(OnReloadClicked) }
     }
