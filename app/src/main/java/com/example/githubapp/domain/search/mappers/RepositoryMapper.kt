@@ -17,6 +17,8 @@ class RepositoryMapper @Inject constructor() {
         description = response.description,
         language = response.language,
         staredTimes = response.stargazersCount,
+        url = response.url,
+        forkedTimes = response.forksCount,
     )
 
 

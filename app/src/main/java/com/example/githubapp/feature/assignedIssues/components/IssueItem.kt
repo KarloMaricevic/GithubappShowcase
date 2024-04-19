@@ -81,7 +81,8 @@ fun OpenedIssuePreview() {
                     "karlomaricevic/shortName",
                     description = "description",
                     language = "Kotlin",
-                    staredTimes = 1900
+                    staredTimes = 1900,
+                    forkedTimes = 1759,
                 ),
                 authorInfo = AuthorInfo("", Image.LocalImage(R.drawable.ic_launcher_foreground)),
                 description = "",
@@ -107,7 +108,8 @@ fun ClosedIssuePreview() {
                     "karlomaricevic/" + List(20) { "shorName" }.joinToString(),
                     description = "description",
                     language = "Kotlin",
-                    staredTimes = 1900
+                    staredTimes = 1900,
+                    forkedTimes = 1759,
                 ),
                 authorInfo = AuthorInfo("", Image.LocalImage(R.drawable.ic_launcher_foreground)),
                 description = "",
