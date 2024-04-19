@@ -5,10 +5,12 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.githubapp.core.base.BaseViewModel
 import com.example.githubapp.core.base.TIMEOUT_DELAY
+import com.example.githubapp.core.navigation.NavigationEvent.*
+import com.example.githubapp.core.navigation.Navigator
 import com.example.githubapp.domain.search.usecase.SearchForRepository
+import com.example.githubapp.feature.repositoryDetails.navigation.RepositoryDetailsScreenRouter
 import com.example.githubapp.feature.search.model.SearchScreenEvent
-import com.example.githubapp.feature.search.model.SearchScreenEvent.OnOpenFiltersClicked
-import com.example.githubapp.feature.search.model.SearchScreenEvent.OnSearchTextChanged
+import com.example.githubapp.feature.search.model.SearchScreenEvent.*
 import com.example.githubapp.feature.search.model.SearchScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,11 +21,13 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchForRepository: SearchForRepository,
+    private val navigator: Navigator,
 ) : BaseViewModel<SearchScreenEvent>() {
 
     private companion object {
@@ -60,6 +64,17 @@ class SearchViewModel @Inject constructor(
     override fun onEvent(event: SearchScreenEvent) {
         when (event) {
             is OnSearchTextChanged -> searchText.update { event.text }
+            is OnRepositoryClicked -> viewModelScope.launch {
+                navigator.emitDestination(
+                    Destination(
+                        RepositoryDetailsScreenRouter.creteRepositoryDetailsRoute(
+                            owner = event.owner,
+                            repositoryName = event.repoName,
+                        )
+                    )
+                )
+            }
+
             is OnOpenFiltersClicked -> {}
         }
     }

@@ -1,6 +1,7 @@
 package com.example.githubapp.feature.search
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,6 +24,7 @@ import com.example.githubapp.core.components.SimpleLazyColumn
 import com.example.githubapp.feature.search.components.RepositoryItem
 import com.example.githubapp.feature.search.components.SearchBar
 import com.example.githubapp.feature.search.model.SearchScreenEvent.OnOpenFiltersClicked
+import com.example.githubapp.feature.search.model.SearchScreenEvent.OnRepositoryClicked
 import com.example.githubapp.feature.search.model.SearchScreenEvent.OnSearchTextChanged
 import com.example.githubapp.feature.search.viewmodel.SearchViewModel
 
@@ -52,7 +54,19 @@ fun SearchScreen(
             SimpleLazyColumn(
                 items = repositories,
                 key = { id },
-                uiItemBuilder = { repository -> RepositoryItem(repository) },
+                uiItemBuilder = { repository ->
+                    RepositoryItem(
+                        repository = repository,
+                        modifier = Modifier.clickable {
+                            viewModel.onEvent(
+                                OnRepositoryClicked(
+                                    owner = repository.author.username,
+                                    repoName = repository.name,
+                                )
+                            )
+                        }
+                    )
+                },
                 noItemsItem = { NoItems() },
                 modifier = Modifier.weight(1f, true),
                 itemSpacing = 2.dp,

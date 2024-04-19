@@ -19,6 +19,8 @@ import com.example.githubapp.feature.home.HomeScreen
 import com.example.githubapp.feature.home.navigation.HomeScreenRouter
 import com.example.githubapp.feature.login.LoginScreen
 import com.example.githubapp.feature.login.navigation.LoginScreenRouter
+import com.example.githubapp.feature.repositoryDetails.RepositoryDetailsScreen
+import com.example.githubapp.feature.repositoryDetails.navigation.RepositoryDetailsScreenRouter
 
 @Composable
 fun GithubappNavigation(
@@ -47,6 +49,14 @@ fun GithubappNavigation(
             composable(HomeScreenRouter.route()) { HomeScreen() }
             composable(LoginScreenRouter.route()) { LoginScreen() }
             composable(AssignedIssuesScreenRouter.route()) { AssignedIssuesScreen() }
+            composable(RepositoryDetailsScreenRouter.route()) { entry ->
+                val owner = entry.arguments?.getString(RepositoryDetailsScreenRouter.OWNER_PARAM)
+                    ?: error("${RepositoryDetailsScreenRouter.OWNER_PARAM} was not provided to repository repositoryDetails screen")
+                val repositoryName =
+                    entry.arguments?.getString(RepositoryDetailsScreenRouter.REPOSITORY_NAME_PARAM)
+                        ?: error("${RepositoryDetailsScreenRouter.REPOSITORY_NAME_PARAM} was not provided to repository repositoryDetails screen")
+                RepositoryDetailsScreen(owner = owner, repoName = repositoryName)
+            }
         }
     }
 }
