@@ -85,7 +85,7 @@ fun RepositoryDetailsHeadline(
         StaredAndForkedCount(
             starredTimes = repository.staredTimes,
             forkedTimes = repository.forkedTimes,
-            modifier = Modifier.padding(top = 16.dp),
+            modifier = Modifier.padding(top = 8.dp),
         )
         StarButton(
             isStarred = isStarred,
@@ -106,8 +106,9 @@ private fun Url(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
-            .padding(4.dp)
-            .clickable(onClick = onUrlClicked),
+            .clickable(onClick = onUrlClicked)
+            .padding(vertical = 8.dp)
+            .padding(start = 4.dp),
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_url),
