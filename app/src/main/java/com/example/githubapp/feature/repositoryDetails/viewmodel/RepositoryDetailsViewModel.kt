@@ -9,6 +9,7 @@ import com.example.githubapp.core.components.SimpleDialogUI
 import com.example.githubapp.core.dictionary.Dictionary
 import com.example.githubapp.core.navigation.NavigationEvent.NavigateBack
 import com.example.githubapp.core.navigation.Navigator
+import com.example.githubapp.core.system.SystemCall
 import com.example.githubapp.domain.repository.usecase.GetRepository
 import com.example.githubapp.domain.repository.usecase.IsRepositoryStarredByUser
 import com.example.githubapp.domain.search.models.Repository
@@ -35,6 +36,7 @@ class RepositoryDetailsViewModel @AssistedInject constructor(
     private val isRepositoryStarredByUser: IsRepositoryStarredByUser,
     private val navigator: Navigator,
     private val dictionary: Dictionary,
+    private val systemCall: SystemCall,
 ) : BaseViewModel<RepositoryDetailsScreenEvent>() {
 
     private val details = MutableStateFlow<Repository?>(null)
@@ -60,12 +62,12 @@ class RepositoryDetailsViewModel @AssistedInject constructor(
 
     override fun onEvent(event: RepositoryDetailsScreenEvent) {
         when (event) {
+            is RepositoryDetailsScreenEvent.OnLinkClicked -> systemCall.openInBrowser(event.url)
             is OnBackClicked -> viewModelScope.launch {
                 navigator.emitDestination(NavigateBack)
             }
 
             is OnReloadClicked -> viewModelScope.launch { fetchRepoDetails() }
-            else -> {}
         }
     }
 

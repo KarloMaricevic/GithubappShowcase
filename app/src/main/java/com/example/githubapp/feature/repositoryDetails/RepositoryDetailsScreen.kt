@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.githubapp.R
 import com.example.githubapp.core.components.SimpleDialog
 import com.example.githubapp.feature.repositoryDetails.components.RepositoryDetailsHeadline
+import com.example.githubapp.feature.repositoryDetails.models.RepositoryDetailsScreenEvent.OnBackClicked
 import com.example.githubapp.feature.repositoryDetails.models.RepositoryDetailsVMParam
 import com.example.githubapp.feature.repositoryDetails.viewmodel.RepositoryDetailsViewModel
 import com.example.githubapp.feature.repositoryDetails.viewmodel.RepositoryDetailsViewModel.RepositoryDetailsViewModelFactory
@@ -48,7 +49,7 @@ fun RepositoryDetailsScreen(
             modifier = Modifier
                 .padding(4.dp)
                 .clip(CircleShape)
-                .clickable { }
+                .clickable { viewModel.onEvent(OnBackClicked) }
                 .padding(4.dp)
                 .size(32.dp)
         )
@@ -56,7 +57,7 @@ fun RepositoryDetailsScreen(
             RepositoryDetailsHeadline(
                 repository = notNullRepository,
                 isStarred = viewState.isStarred,
-                interactionHandler = {},
+                interactionHandler = viewModel::onEvent,
             )
         }
         if (viewState.isLoading) {
