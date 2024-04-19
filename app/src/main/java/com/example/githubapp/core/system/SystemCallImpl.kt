@@ -30,7 +30,11 @@ class SystemCallImpl @Inject constructor(
     }
 
     override fun openInBrowser(url: String): Boolean = try {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        val intent = Intent().apply {
+            action = Intent.ACTION_VIEW
+            data = Uri.parse(url)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
         context.startActivity(intent)
         true
     } catch (e: ActivityNotFoundException) {
