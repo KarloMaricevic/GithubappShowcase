@@ -1,9 +1,14 @@
 package com.example.githubapp.core.system
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+
 
 class SystemCallImpl @Inject constructor(
     @ApplicationContext private val context: Context
@@ -22,5 +27,13 @@ class SystemCallImpl @Inject constructor(
                 type = TEXT_PLAIN_TYPE
             }
         )
+    }
+
+    override fun openInBrowser(url: String): Boolean = try {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        context.startActivity(intent)
+        true
+    } catch (e: ActivityNotFoundException) {
+        false
     }
 }
