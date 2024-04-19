@@ -12,10 +12,13 @@ import com.example.githubapp.core.navigation.Navigator
 import com.example.githubapp.core.system.SystemCall
 import com.example.githubapp.domain.repository.usecase.GetRepository
 import com.example.githubapp.domain.repository.usecase.IsRepositoryStarredByUser
+import com.example.githubapp.domain.repository.usecase.StarRepository
+import com.example.githubapp.domain.repository.usecase.UnStarRepository
 import com.example.githubapp.domain.search.models.Repository
 import com.example.githubapp.feature.repositoryDetails.models.RepositoryDetailsScreenEvent
 import com.example.githubapp.feature.repositoryDetails.models.RepositoryDetailsScreenEvent.OnBackClicked
 import com.example.githubapp.feature.repositoryDetails.models.RepositoryDetailsScreenEvent.OnReloadClicked
+import com.example.githubapp.feature.repositoryDetails.models.RepositoryDetailsScreenEvent.OnStarButtonClicked
 import com.example.githubapp.feature.repositoryDetails.models.RepositoryDetailsScreenState
 import com.example.githubapp.feature.repositoryDetails.models.RepositoryDetailsVMParam
 import dagger.assisted.Assisted
@@ -34,6 +37,8 @@ class RepositoryDetailsViewModel @AssistedInject constructor(
     @Assisted private val params: RepositoryDetailsVMParam,
     private val getRepository: GetRepository,
     private val isRepositoryStarredByUser: IsRepositoryStarredByUser,
+    private val starRepository: StarRepository,
+    private val unStarRepository: UnStarRepository,
     private val navigator: Navigator,
     private val dictionary: Dictionary,
     private val systemCall: SystemCall,
@@ -41,12 +46,14 @@ class RepositoryDetailsViewModel @AssistedInject constructor(
 
     private val details = MutableStateFlow<Repository?>(null)
     private val isStarredByUser = MutableStateFlow(false)
+    private val starLoading = MutableStateFlow(false)
     private val isLoading = MutableStateFlow(true)
     private val dialog = MutableStateFlow<SimpleDialogUI?>(null)
 
     val viewState = combine(
         details,
         isStarredByUser,
+        starLoading,
         isLoading,
         dialog,
         ::RepositoryDetailsScreenState,
@@ -68,6 +75,21 @@ class RepositoryDetailsViewModel @AssistedInject constructor(
             }
 
             is OnReloadClicked -> viewModelScope.launch { fetchRepoDetails() }
+            is OnStarButtonClicked -> {
+                viewModelScope.launch {
+                    starLoading.update { true }
+                    if (event.starred) {
+                        unStarRepository(params.owner, params.repoName).onRight {
+                            isStarredByUser.update { false }
+                        }
+                    } else {
+                        starRepository(params.owner, params.repoName).onRight {
+                            isStarredByUser.update { true }
+                        }
+                    }
+                    starLoading.update { false }
+                }
+            }
         }
     }
 

@@ -57,6 +57,7 @@ fun RepositoryDetailsScreen(
             RepositoryDetailsHeadline(
                 repository = notNullRepository,
                 isStarred = viewState.isStarred,
+                showLoaderInsteadOfStar = viewState.starLoading,
                 interactionHandler = viewModel::onEvent,
             )
         }

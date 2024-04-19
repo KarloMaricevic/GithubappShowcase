@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,12 +29,13 @@ import com.example.githubapp.designSystem.theme.gray500
 import com.example.githubapp.domain.models.AuthorInfo
 import com.example.githubapp.domain.search.models.Repository
 import com.example.githubapp.feature.repositoryDetails.models.RepositoryDetailsScreenEvent
-import com.example.githubapp.feature.repositoryDetails.models.RepositoryDetailsScreenEvent.OnLinkClicked
+import com.example.githubapp.feature.repositoryDetails.models.RepositoryDetailsScreenEvent.*
 
 @Composable
 fun RepositoryDetailsHeadline(
     repository: Repository,
     isStarred: Boolean,
+    showLoaderInsteadOfStar: Boolean,
     interactionHandler: (RepositoryDetailsScreenEvent) -> Unit,
 ) {
     Column(
@@ -85,7 +87,12 @@ fun RepositoryDetailsHeadline(
             forkedTimes = repository.forkedTimes,
             modifier = Modifier.padding(top = 16.dp),
         )
-        StarButton(isStarred = isStarred, modifier = Modifier.padding(top = 12.dp))
+        StarButton(
+            isStarred = isStarred,
+            onClick = { interactionHandler(OnStarButtonClicked(isStarred)) },
+            modifier = Modifier.padding(top = 12.dp),
+            showLoader = showLoaderInsteadOfStar,
+        )
     }
 }
 
@@ -158,26 +165,36 @@ fun StaredAndForkedCount(
 @Composable
 fun StarButton(
     isStarred: Boolean,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    showLoader: Boolean = false,
 ) {
     Button(
         modifier = modifier.fillMaxWidth(),
-        onClick = {},
+        onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surface),
         shape = RoundedCornerShape(4.dp),
     ) {
-        Icon(
-            painter = painterResource(
-                if (isStarred) {
-                    R.drawable.ic_star_filled
-                } else {
-                    R.drawable.ic_star_outlined
-                }
-            ),
-            tint = gray500,
-            modifier = Modifier.padding(end = 6.dp),
-            contentDescription = stringResource(R.string.default_icon_content_description),
-        )
+        if (!showLoader) {
+            Icon(
+                painter = painterResource(
+                    if (isStarred) {
+                        R.drawable.ic_star_filled
+                    } else {
+                        R.drawable.ic_star_outlined
+                    }
+                ),
+                tint = gray500,
+                modifier = Modifier.padding(end = 6.dp),
+                contentDescription = stringResource(R.string.default_icon_content_description),
+            )
+        } else {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .padding(end = 6.dp)
+                    .size(16.dp)
+            )
+        }
         Text(
             text = stringResource(R.string.repository_details_screen_star_button),
             color = gray500,
@@ -204,6 +221,7 @@ private fun RepositoryDetailsHeadlinePreview() {
             url = "https://github.com/KarloMaricevic/GithubappShowcase",
         ),
         isStarred = false,
+        showLoaderInsteadOfStar = false,
         interactionHandler = {},
     )
 }
@@ -227,6 +245,7 @@ private fun RepositoryDetailsHeadlineLongPreview() {
             url = "https://github.com/KarloMaricevic/GithubappShowcaseGithubappShowcaseGithubappShowcaseGithubappShowcase",
         ),
         isStarred = true,
+        showLoaderInsteadOfStar = false,
         interactionHandler = {},
     )
 }

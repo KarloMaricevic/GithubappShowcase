@@ -7,4 +7,6 @@ sealed interface RepositoryDetailsScreenEvent {
     data object OnBackClicked : RepositoryDetailsScreenEvent
 
     data object OnReloadClicked : RepositoryDetailsScreenEvent
+
+    data class OnStarButtonClicked(val starred: Boolean) : RepositoryDetailsScreenEvent
 }
