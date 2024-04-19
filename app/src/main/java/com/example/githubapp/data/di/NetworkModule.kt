@@ -12,6 +12,7 @@ import com.example.githubapp.data.profile.ProfileApi
 import com.example.githubapp.data.search.SearchApi
 import com.example.githubapp.data.interceptors.AuthTokenHeaderInterceptor
 import com.example.githubapp.data.interceptors.JsonAcceptHeaderInterceptor
+import com.example.githubapp.data.repository.RepositoryApi
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import dagger.Module
@@ -136,4 +137,9 @@ class NetworkModule {
     @Singleton
     fun provideIssuesApi(@Named(DATA) retrofit: Retrofit): IssuesApi =
         retrofit.create(IssuesApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideRepositoryApi(@Named(DATA) retrofit: Retrofit): RepositoryApi =
+        retrofit.create(RepositoryApi::class.java)
 }
