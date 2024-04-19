@@ -23,6 +23,7 @@
     <string name="try_again">Try again</string>
     <string name="unexpected_error_description">Something unexpected happened</string>
     <string name="error">Error</string>
+    <string name="go_back">Go back</string>
 
     <string name="issues">Issues</string>
     <string name="pull_requests">Pull requests</string>
